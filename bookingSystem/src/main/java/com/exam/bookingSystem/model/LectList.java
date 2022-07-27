@@ -1,5 +1,8 @@
 package com.exam.bookingSystem.model;
 
+import lombok.Data;
+
+@Data
 public class LectList {
 	private String lecturerName;
 	private String placeName;

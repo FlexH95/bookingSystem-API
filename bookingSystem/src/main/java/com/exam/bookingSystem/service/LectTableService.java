@@ -1,9 +1,10 @@
 package com.exam.bookingSystem.service;
 
 import java.util.List;
-import java.util.Map;
+
+import com.exam.bookingSystem.model.LectList;
 
 public interface LectTableService {
 
-	public List<Map<String, Object>> SelectAllList() throws Exception;
+	public List<LectList> SelectList();
 }

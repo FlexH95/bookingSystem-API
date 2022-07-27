@@ -5,8 +5,8 @@
   
 <mapper namespace="com.exam.bookingSystem.mapper.LectTableMapper">
  
-    <select id="SelectAllList" resultType="hashmap">
-       SELECT * FROM lectListTable
+    <select id="SelectList" parameterType="com.exam.bookingSystem.model.LectList" resultType="com.exam.bookingSystem.model.LectList" >
+       SELECT * FROM lect_TB
     </select>
  
 </mapper>
