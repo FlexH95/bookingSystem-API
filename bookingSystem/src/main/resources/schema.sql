@@ -6,7 +6,7 @@ CREATE TABLE lect_TB
     placeName       VARCHAR2 (100)   NOT NULL,
     capCnt            NUMBER(3)          NOT NULL,
     dateTimeStamp VARCHAR2 (12)     DEFAULT TO_CHAR(SYSDATE,'YYYYMMDDHH24MI'),
-    decs               VARCHAR2 (100),
+    lectDesc         VARCHAR2 (100),
     CONSTRAINT lect_pk PRIMARY KEY (lecturerName, placeName, capCnt, dateTimeStamp)
 );
 

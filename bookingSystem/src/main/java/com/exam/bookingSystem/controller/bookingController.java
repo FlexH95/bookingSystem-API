@@ -29,7 +29,7 @@ public class bookingController {
 	}
 
 	@PostMapping(value = "/new")
-	public List<LectList> insertMember(@RequestBody LectList list) throws Exception {
+	public List<LectList> insertLect(@RequestBody LectList list) throws Exception {
 		sqlService.insertLect(list);
 		return sqlService.getLectAll();
 	}
@@ -47,7 +47,7 @@ public class bookingController {
 	}
 
 	@PostMapping(value = "/emp/new")
-	public List<LectApplyList> insertMember(@RequestBody LectApplyList list) throws Exception {
+	public List<LectApplyList> insertLectEmp(@RequestBody LectApplyList list) throws Exception {
 		sqlService.insertLectEmp(list);
 		return sqlService.getLectEmpList();
 	}

@@ -9,19 +9,19 @@ public interface LectTableService {
 
 	public List<LectList> getLectAll() throws Exception;
 
-	void insertLect(LectList list) throws Exception;
+	public int insertLect(LectList list) throws Exception;
 
 	public List<LectApplyList> getLectEmpList() throws Exception;
 
 	public List<LectList> getLectBefore7days() throws Exception;
 
-	void insertLectEmp(LectApplyList list) throws Exception;
+	public int insertLectEmp(LectApplyList list) throws Exception;
 
 	public List<LectApplyList> getLectListByEmp(String empNo) throws Exception;
 
-	void deleteLectEmp(LectApplyList list) throws Exception;
+	public int deleteLectEmp(LectApplyList list) throws Exception;
 
 	public List<LectApplyList> getLectRank() throws Exception;
 
-	public int getLectEmpCnt() throws Exception;
+	public int getLectEmpCnt(LectApplyList list) throws Exception;
 }

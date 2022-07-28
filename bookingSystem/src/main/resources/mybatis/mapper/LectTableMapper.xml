@@ -14,8 +14,8 @@
     
     <!-- 강연 등록(강연자, 강연장, 신청인원, 강연시간, 강연 내용 입력) -->
     <insert id="insertLect" parameterType="com.exam.bookingSystem.model.LectList">
-       INSERT INTO lect_TB(lecturerName, placeName, capCnt, dateTimeStamp, decs)
-       VALUES(#{lecturerName}, #{placeName}, #{capCnt}, #{dateTimeStamp}, #{decs})
+       INSERT INTO Lect_TB(lecturerName, placeName, capCnt, dateTimeStamp, lectDesc)
+       VALUES(#{lecturerName}, #{placeName}, #{capCnt}, #{dateTimeStamp}, #{lectDesc})
     </insert>
     
     <!-- 강연신청자 목록(강연별 신청한 사번 목록) -->
@@ -53,10 +53,11 @@
     
     <!-- 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순) -->
     <select id="getLectRank" resultType="com.exam.bookingSystem.model.LectApplyList" >
-       SELECT lecturerName 
-       FROM Lect_Emp_TB
+       SELECT e.lecturerName as lecturerName
+       FROM Lect_TB t, lect_emp_tb e
        WHERE dateTimeStamp BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDDHH24MI') AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MI')
-       GROUP BY lecturerName
+       AND t.lecturerName = e.lecturerName
+       GROUP BY e.lecturerName
        ORDER BY COUNT(*) desc
     </select>  
     

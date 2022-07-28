@@ -6,9 +6,9 @@ import lombok.Data;
 public class LectList {
 	private String lecturerName;
 	private String placeName;
-	private int capCount;
-	private String dateTime;
-	private String desc;
+	private int capCnt;
+	private String dateTimeStamp;
+	private String lectDesc;
 
 	public String getLecturerName() {
 		return lecturerName;
@@ -26,27 +26,27 @@ public class LectList {
 		this.placeName = placeName;
 	}
 
-	public int getCapCount() {
-		return capCount;
+	public int getCapCnt() {
+		return capCnt;
 	}
 
-	public void setCapCount(int capCount) {
-		this.capCount = capCount;
+	public void setCapCnt(int capCnt) {
+		this.capCnt = capCnt;
 	}
 
-	public String getDateTime() {
-		return dateTime;
+	public String getDateTimeStamp() {
+		return dateTimeStamp;
 	}
 
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
+	public void setDateTimeStamp(String dateTimeStamp) {
+		this.dateTimeStamp = dateTimeStamp;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getLectDesc() {
+		return lectDesc;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setLectDesc(String desc) {
+		this.lectDesc = desc;
 	}
 }
