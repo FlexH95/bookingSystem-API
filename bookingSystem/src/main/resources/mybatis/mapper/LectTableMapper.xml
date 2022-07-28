@@ -4,9 +4,67 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.exam.bookingSystem.mapper.LectTableMapper">
- 
-    <select id="SelectList" parameterType="com.exam.bookingSystem.model.LectList" resultType="com.exam.bookingSystem.model.LectList" >
-       SELECT * FROM lect_TB
+
+    <!-- BackOffice Start -->
+    
+    <!-- 강연 목록(전체 강연 목록) -->
+    <select id="getLectAll" resultType="com.exam.bookingSystem.model.LectList" >
+       SELECT lecturerName FROM lect_TB
     </select>
- 
+    
+    <!-- 강연 등록(강연자, 강연장, 신청인원, 강연시간, 강연 내용 입력) -->
+    <insert id="insertLect" parameterType="com.exam.bookingSystem.model.LectList">
+       INSERT INTO lect_TB(lecturerName, placeName, capCnt, dateTimeStamp, decs)
+       VALUES(#{lecturerName}, #{placeName}, #{capCnt}, #{dateTimeStamp}, #{decs})
+    </insert>
+    
+    <!-- 강연신청자 목록(강연별 신청한 사번 목록) -->
+    <select id="getLectEmpList" resultType="com.exam.bookingSystem.model.LectApplyList" >
+       SELECT lecturerName, empNo 
+       FROM lect_emp_tb
+       ORDER BY lecturerName, empNo
+    </select>
+    
+    <!-- BackOffice End -->
+    
+    <!-- Front Start -->
+    
+    <!-- 강연 목록(신청 가능한 싯점(강연시작시간 1주일 전 노출)부터 강연시작시간 1일 후까지 노출) -->
+    <select id="getLectBefore7days" resultType="com.exam.bookingSystem.model.LectList" >
+       SELECT *
+       FROM Lect_TB
+       WHERE dateTimeStamp > = TO_CHAR(SYSDATE-7,'YYYYMMDDHH24MI')
+       ORDER BY dateTimeStamp desc
+    </select>
+    
+    <!-- 강연 신청(사번(5자리)만 입력, 같은 강연 중복 신청 제한) -->
+    <insert id="insertLectEmp" parameterType="com.exam.bookingSystem.model.LectApplyList">
+       INSERT INTO lect_Emp_TB(lecturerName, empNo) VALUES(#{lecturerName}, #{empNo})
+    </insert>
+    
+    <!-- 신청 내역 조회 (사번 입력) -->
+    <select id="getLectListByEmp" parameterType="String" resultType="com.exam.bookingSystem.model.LectApplyList" >
+       SELECT lecturerName FROM lect_Emp_TB WHERE empNo = #{empNo} 
+    </select>
+    
+    <delete id="deleteLectEmp" parameterType="com.exam.bookingSystem.model.LectApplyList">
+       DELETE FROM lect_Emp_TB WHERE lecturerName = #{lecturerName} AND empNo = #{empNo}
+    </delete>
+    
+    <!-- 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순) -->
+    <select id="getLectRank" resultType="com.exam.bookingSystem.model.LectApplyList" >
+       SELECT lecturerName 
+       FROM Lect_Emp_TB
+       WHERE dateTimeStamp BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDDHH24MI') AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MI')
+       GROUP BY lecturerName
+       ORDER BY COUNT(*) desc
+    </select>  
+    
+    <!-- Front End --> 
+    
+    <!-- 강연 신청 전 중복 신청 확인 -->
+    <select id="getLectEmpCnt" parameterType="com.exam.bookingSystem.model.LectApplyList" resultType="int" >
+       SELECT count(*) FROM lect_emp_tb WHERE lecturerName = #{lecturerName} and empNo = #{empNo}
+    </select>
+    
 </mapper>

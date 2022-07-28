@@ -2,12 +2,12 @@ DROP TABLE lect_TB;
 
 CREATE TABLE lect_TB 
 ( 
-    lecturerName  VARCHAR2 (100)	NOT NULL,
-    placeName     VARCHAR2 (100)   NOT NULL,
-    capCnt        NUMBER(3)        NOT NULL,
-    dateTimeStamp VARCHAR2 (14)    DEFAULT TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'),
-    decs          VARCHAR2 (100),
-    CONSTRAINT lect_pk PRIMARY KEY (lecturerName)
+    lecturerName    VARCHAR2 (100)	 NOT NULL,
+    placeName       VARCHAR2 (100)   NOT NULL,
+    capCnt            NUMBER(3)          NOT NULL,
+    dateTimeStamp VARCHAR2 (12)     DEFAULT TO_CHAR(SYSDATE,'YYYYMMDDHH24MI'),
+    decs               VARCHAR2 (100),
+    CONSTRAINT lect_pk PRIMARY KEY (lecturerName, placeName, capCnt, dateTimeStamp)
 );
 
 DROP TABLE lect_Emp_TB;

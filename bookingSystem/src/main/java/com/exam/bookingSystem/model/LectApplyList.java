@@ -6,6 +6,7 @@ import lombok.Data;
 public class LectApplyList {
 
 	private String lecturerName;
+
 	private String empNo;
 
 	public String getLecturerName() {
