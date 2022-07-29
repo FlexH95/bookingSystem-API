@@ -8,8 +8,13 @@
     <!-- BackOffice Start -->
     
     <!-- 강연 목록(전체 강연 목록) -->
-    <select id="getLectAll" resultType="com.exam.bookingSystem.model.LectList" >
+    <select id="getLectAll" parameterType = "String" resultType="com.exam.bookingSystem.model.LectList" >
        SELECT lecturerName FROM lect_TB
+       <where>
+       <if test='lecturerName != null and lecturerName != "" '>
+              WHERE lecturerName = #{lecturerName}
+       </if>
+       </where>
     </select>
     
     <!-- 강연 등록(강연자, 강연장, 신청인원, 강연시간, 강연 내용 입력) -->
@@ -21,7 +26,7 @@
     <!-- 강연신청자 목록(강연별 신청한 사번 목록) -->
     <select id="getLectEmpList" resultType="com.exam.bookingSystem.model.LectApplyList" >
        SELECT lecturerName, empNo 
-       FROM lect_emp_tb
+       FROM lect_Emp_TB
        ORDER BY lecturerName, empNo
     </select>
     
@@ -32,7 +37,7 @@
     <!-- 강연 목록(신청 가능한 싯점(강연시작시간 1주일 전 노출)부터 강연시작시간 1일 후까지 노출) -->
     <select id="getLectBefore7days" resultType="com.exam.bookingSystem.model.LectList" >
        SELECT *
-       FROM Lect_TB
+       FROM lect_TB
        WHERE dateTimeStamp > = TO_CHAR(SYSDATE-7,'YYYYMMDDHH24MI')
        ORDER BY dateTimeStamp desc
     </select>
@@ -47,6 +52,7 @@
        SELECT lecturerName FROM lect_Emp_TB WHERE empNo = #{empNo} 
     </select>
     
+    <!-- 신청한 강연 취소(조회한 신청한 강연 정보 취소) -->
     <delete id="deleteLectEmp" parameterType="com.exam.bookingSystem.model.LectApplyList">
        DELETE FROM lect_Emp_TB WHERE lecturerName = #{lecturerName} AND empNo = #{empNo}
     </delete>
@@ -54,8 +60,8 @@
     <!-- 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순) -->
     <select id="getLectRank" resultType="com.exam.bookingSystem.model.LectApplyList" >
        SELECT e.lecturerName as lecturerName
-       FROM Lect_TB t, lect_emp_tb e
-       WHERE dateTimeStamp BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDDHH24MI') AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MI')
+       FROM Lect_TB t, lect_Emp_TB e
+       WHERE t.dateTimeStamp BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDDHH24MI') AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MI')
        AND t.lecturerName = e.lecturerName
        GROUP BY e.lecturerName
        ORDER BY COUNT(*) desc
@@ -63,9 +69,18 @@
     
     <!-- Front End --> 
     
+    <!-- 강연 등록 전 중복 둥록 확인 -->
+    <select id="getLectCnt" parameterType="com.exam.bookingSystem.model.LectList" resultType="int" >
+       SELECT count(*) FROM lect_TB
+       WHERE lecturerName = #{lecturerName} 
+       AND  placeName = #{placeName}
+       AND capCnt = #{capCnt}
+       AND dateTimeStamp = #{dateTimeStamp}
+    </select>
+    
     <!-- 강연 신청 전 중복 신청 확인 -->
     <select id="getLectEmpCnt" parameterType="com.exam.bookingSystem.model.LectApplyList" resultType="int" >
-       SELECT count(*) FROM lect_emp_tb WHERE lecturerName = #{lecturerName} and empNo = #{empNo}
+       SELECT count(*) FROM lect_Emp_TB WHERE lecturerName = #{lecturerName} and empNo = #{empNo}
     </select>
     
 </mapper>

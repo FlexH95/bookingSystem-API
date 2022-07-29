@@ -7,7 +7,7 @@ import com.exam.bookingSystem.model.LectList;
 
 public interface LectTableService {
 
-	public List<LectList> getLectAll() throws Exception;
+	public List<LectList> getLectAll(String lectName) throws Exception;
 
 	public int insertLect(LectList list) throws Exception;
 
@@ -22,6 +22,8 @@ public interface LectTableService {
 	public int deleteLectEmp(LectApplyList list) throws Exception;
 
 	public List<LectApplyList> getLectRank() throws Exception;
+
+	public int getLectCnt(LectList list) throws Exception;
 
 	public int getLectEmpCnt(LectApplyList list) throws Exception;
 }

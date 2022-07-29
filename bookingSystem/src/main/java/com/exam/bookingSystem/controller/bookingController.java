@@ -22,52 +22,65 @@ public class bookingController {
 	@Autowired
 	private LectTableService sqlService;
 
+	/** BackOffice Start **/
+	/** 강연 목록(전체 강연 목록) **/
 	@GetMapping(value = "/all")
 	public List<LectList> getLectAll() throws Exception {
-		List<LectList> list = sqlService.getLectAll();
+		List<LectList> list = sqlService.getLectAll("");
 		return list;
 	}
 
+	/** 강연 등록 **/
 	@PostMapping(value = "/new")
 	public List<LectList> insertLect(@RequestBody LectList list) throws Exception {
 		sqlService.insertLect(list);
-		return sqlService.getLectAll();
+		return sqlService.getLectAll("");
 	}
 
+	/** 강연신청자 목록 **/
 	@GetMapping(value = "/emp/all")
 	public List<LectApplyList> getLectEmpList() throws Exception {
 		List<LectApplyList> list = sqlService.getLectEmpList();
 		return list;
 	}
 
+	/** BackOffice End **/
+
+	/** Front Start **/
+
+	/** 강연 목록(신청 가능한 싯점(강연시작시간 1주일 전 노출)부터 강연시작시간 1일 후까지 노출) **/
 	@GetMapping(value = "/show")
 	public List<LectList> getLectBefore7days() throws Exception {
 		List<LectList> list = sqlService.getLectBefore7days();
 		return list;
 	}
 
+	/** 강연 신청 **/
 	@PostMapping(value = "/emp/new")
 	public List<LectApplyList> insertLectEmp(@RequestBody LectApplyList list) throws Exception {
 		sqlService.insertLectEmp(list);
 		return sqlService.getLectEmpList();
 	}
 
+	/** 신청 내역 조회(사번만 입력) **/
 	@GetMapping(value = "/emp/{empNo}")
 	public List<LectApplyList> getLectListByEmp(@PathVariable String empNo) throws Exception {
 		List<LectApplyList> list = sqlService.getLectListByEmp(empNo);
 		return list;
 	}
 
+	/** 신청한 강연 취소(조회한 신청한 강연 정보 취소) **/
 	@DeleteMapping(value = "/emp/del")
 	public List<LectApplyList> deleteLectEmp(@RequestBody LectApplyList list) throws Exception {
 		sqlService.deleteLectEmp(list);
 		return sqlService.getLectEmpList();
 	}
 
+	/** 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순) **/
 	@GetMapping(value = "/rank")
 	public List<LectApplyList> getLectRank() throws Exception {
 		List<LectApplyList> list = sqlService.getLectRank();
 		return list;
 	}
-
+	/** Front End **/
 }

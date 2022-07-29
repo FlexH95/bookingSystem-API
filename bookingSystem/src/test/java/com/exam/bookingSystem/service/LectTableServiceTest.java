@@ -30,7 +30,7 @@ public class LectTableServiceTest {
 	public void testGetLectAll() {
 		try {
 
-			List<LectList> List = sqlService.getLectAll();
+			List<LectList> List = sqlService.getLectAll("");
 			assertNotNull(List.size());
 
 		} catch (Exception e) {

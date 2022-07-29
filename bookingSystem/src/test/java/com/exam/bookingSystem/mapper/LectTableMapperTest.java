@@ -30,7 +30,7 @@ public class LectTableMapperTest {
 	public void testGetLectAll() {
 		try {
 
-			List<LectList> List = sqlMapper.getLectAll();
+			List<LectList> List = sqlMapper.getLectAll("");
 			assertNotNull(List);
 		} catch (Exception e) {
 			e.printStackTrace();
