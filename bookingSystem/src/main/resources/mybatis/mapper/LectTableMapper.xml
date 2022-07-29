@@ -10,11 +10,10 @@
     <!-- 강연 목록(전체 강연 목록) -->
     <select id="getLectAll" parameterType = "String" resultType="com.exam.bookingSystem.model.LectList" >
        SELECT lecturerName FROM lect_TB
-       <where>
-       <if test='lecturerName != null and lecturerName != "" '>
-              WHERE lecturerName = #{lecturerName}
+       where 1=1
+       <if test='lecturerName!= null and lecturerName!=""'>
+              AND lecturerName = #{lecturerName}
        </if>
-       </where>
     </select>
     
     <!-- 강연 등록(강연자, 강연장, 신청인원, 강연시간, 강연 내용 입력) -->
@@ -44,7 +43,8 @@
     
     <!-- 강연 신청(사번(5자리)만 입력, 같은 강연 중복 신청 제한) -->
     <insert id="insertLectEmp" parameterType="com.exam.bookingSystem.model.LectApplyList">
-       INSERT INTO lect_Emp_TB(lecturerName, empNo) VALUES(#{lecturerName}, #{empNo})
+       INSERT INTO lect_Emp_TB(lecturerName, empNo) 
+       VALUES(#{lecturerName}, #{empNo})
     </insert>
     
     <!-- 신청 내역 조회 (사번 입력) -->

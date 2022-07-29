@@ -25,7 +25,7 @@ public class LectTableServiceImpl implements LectTableService {
 		return sqlMapper.getLectAll("");
 	}
 
-	@Transactional(readOnly = false, isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly = false, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public int insertLect(LectList list) throws Exception {
 		/** 강연 중복 등록되어 있는지 확인 **/
@@ -49,12 +49,13 @@ public class LectTableServiceImpl implements LectTableService {
 		return sqlMapper.getLectBefore7days();
 	}
 
-	@Transactional(readOnly = false, isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly = false, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public int insertLectEmp(LectApplyList list) throws Exception {
 
+		String lectName = list.getLecturerName();
 		/** 강연이 등록되어 있는지 확인 **/
-		List<LectList> temp = sqlMapper.getLectAll(list.getLecturerName().toString());
+		List<LectList> temp = sqlMapper.getLectAll(lectName);
 		if (temp.size() == 0) {
 			throw new IllegalStateException("강연이 등록되어 있지 않습니다.");
 		}
@@ -64,10 +65,10 @@ public class LectTableServiceImpl implements LectTableService {
 		iCnt = sqlMapper.getLectEmpCnt(list);
 		if (iCnt == 0) {
 			/** 사번이 5자리인지 확인 **/
-			if (list.getEmpNo().length() > 5) {
-				throw new IllegalStateException("사번은 5자리 입니다.");
-			} else {
+			if (list.getEmpNo().length() == 5) {
 				return sqlMapper.insertLectEmp(list);
+			} else {
+				throw new IllegalStateException("사번은 5자리 입니다.");
 			}
 		} else {
 			throw new IllegalStateException("중복해서 신청할 수 없습니다.");
@@ -80,7 +81,7 @@ public class LectTableServiceImpl implements LectTableService {
 		return sqlMapper.getLectListByEmp(empNo);
 	}
 
-	@Transactional(readOnly = false, isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly = false, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
 	public int deleteLectEmp(LectApplyList list) throws Exception {
 		int iCnt = 0;
