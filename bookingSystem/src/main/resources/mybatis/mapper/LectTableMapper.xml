@@ -23,10 +23,20 @@
     </insert>
     
     <!-- 강연신청자 목록(강연별 신청한 사번 목록) -->
-    <select id="getLectEmpList" resultType="com.exam.bookingSystem.model.LectApplyList" >
-       SELECT lecturerName, empNo 
+    <select id="getLectEmpList" parameterType = "String" resultType="com.exam.bookingSystem.model.LectApplyList" >
+       <choose>       
+       <when test='lecturerName!= null and lecturerName!=""'>
+       SELECT distinct empNo 
+       FROM lect_Emp_TB
+       where lecturerName = #{lecturerName}
+       ORDER BY empNo
+       </when>
+       <otherwise>
+       SELECT distinct lecturerName, empNo 
        FROM lect_Emp_TB
        ORDER BY lecturerName, empNo
+       </otherwise>
+       </choose>       
     </select>
     
     <!-- BackOffice End -->
@@ -38,7 +48,7 @@
        SELECT *
        FROM lect_TB
        WHERE dateTimeStamp > = TO_CHAR(SYSDATE-7,'YYYYMMDDHH24MI')
-       ORDER BY dateTimeStamp desc
+       ORDER BY lecturerName, dateTimeStamp 
     </select>
     
     <!-- 강연 신청(사번(5자리)만 입력, 같은 강연 중복 신청 제한) -->
@@ -64,7 +74,7 @@
        WHERE t.dateTimeStamp BETWEEN TO_CHAR(SYSDATE-3,'YYYYMMDDHH24MI') AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MI')
        AND t.lecturerName = e.lecturerName
        GROUP BY e.lecturerName
-       ORDER BY COUNT(*) desc
+       ORDER BY COUNT(*) desc, e.lecturerName
     </select>  
     
     <!-- Front End --> 

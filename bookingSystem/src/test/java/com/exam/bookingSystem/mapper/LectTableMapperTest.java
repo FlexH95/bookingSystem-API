@@ -60,7 +60,7 @@ public class LectTableMapperTest {
 	public void testGetLectEmpList() {
 		try {
 
-			List<LectApplyList> List = sqlMapper.getLectEmpList();
+			List<LectApplyList> List = sqlMapper.getLectEmpList("");
 			assertNotNull(List);
 		} catch (Exception e) {
 			e.printStackTrace();

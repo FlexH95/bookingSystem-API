@@ -11,7 +11,7 @@ public interface LectTableService {
 
 	public int insertLect(LectList list) throws Exception;
 
-	public List<LectApplyList> getLectEmpList() throws Exception;
+	public List<LectApplyList> getLectEmpList(String lectName) throws Exception;
 
 	public List<LectList> getLectBefore7days() throws Exception;
 

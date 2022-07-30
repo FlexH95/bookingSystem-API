@@ -62,7 +62,7 @@ public class LectTableServiceTest {
 	public void testGetLectEmpList() {
 		try {
 
-			List<LectApplyList> List = sqlService.getLectEmpList();
+			List<LectApplyList> List = sqlService.getLectEmpList("");
 			assertNotNull(List);
 		} catch (Exception e) {
 			e.printStackTrace();

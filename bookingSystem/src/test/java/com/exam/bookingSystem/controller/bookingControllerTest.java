@@ -82,11 +82,11 @@ public class bookingControllerTest {
 	public void testInsertLect() throws Exception {
 		iResult = 0;
 		LectList List = new LectList();
-		List.setLecturerName("B");
-		List.setPlaceName("B_Place");
+		List.setLecturerName("X");
+		List.setPlaceName("X_Place");
 		List.setCapCnt(10);
 		List.setDateTimeStamp("202208011230");
-		List.setLectDesc("B Lect");
+		List.setLectDesc("X Lect");
 
 		MvcResult mvcResult = mock.perform(MockMvcRequestBuilders.post(sControl + "/new")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(this.mapToJson(List))).andReturn();
@@ -98,8 +98,8 @@ public class bookingControllerTest {
 	public void testGetLectEmpList() {
 		try {
 
-			MvcResult mvcResult = mock
-					.perform(MockMvcRequestBuilders.get(sControl + "/emp/all").accept(MediaType.APPLICATION_JSON_VALUE))
+			MvcResult mvcResult = mock.perform(
+					MockMvcRequestBuilders.get(sControl + "/emp/list" + "").accept(MediaType.APPLICATION_JSON_VALUE))
 					.andReturn();
 
 			assertEquals(200, mvcResult.getResponse().getStatus());
@@ -130,7 +130,7 @@ public class bookingControllerTest {
 		iResult = 0;
 		LectApplyList List = new LectApplyList();
 		List.setLecturerName("B");
-		List.setEmpNo("12345");
+		List.setEmpNo("98765");
 
 		MvcResult mvcResult = mock.perform(MockMvcRequestBuilders.post(sControl + "/emp/new")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(this.mapToJson(List))).andReturn();
@@ -165,7 +165,7 @@ public class bookingControllerTest {
 			List.setLecturerName("B");
 			List.setEmpNo("12345");
 
-			MvcResult mvcResult = mock.perform(MockMvcRequestBuilders.delete(sControl + "/emp/del")
+			MvcResult mvcResult = mock.perform(MockMvcRequestBuilders.delete(sControl + "/emp/{lect}")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(this.mapToJson(List))).andReturn();
 
 			int status = mvcResult.getResponse().getStatus();

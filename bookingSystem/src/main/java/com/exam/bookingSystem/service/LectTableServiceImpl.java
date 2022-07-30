@@ -40,8 +40,8 @@ public class LectTableServiceImpl implements LectTableService {
 	}
 
 	@Override
-	public List<LectApplyList> getLectEmpList() throws Exception {
-		return sqlMapper.getLectEmpList();
+	public List<LectApplyList> getLectEmpList(String lectName) throws Exception {
+		return sqlMapper.getLectEmpList(lectName);
 	}
 
 	@Override
