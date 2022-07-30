@@ -35,9 +35,8 @@ public class bookingController {
 
 	/** 강연 등록 **/
 	@PostMapping(value = "/new")
-	public List<LectList> insertLect(@RequestBody LectList list) throws Exception {
+	public void insertLect(@RequestBody LectList list) throws Exception {
 		sqlService.insertLect(list);
-		return sqlService.getLectAll("");
 	}
 
 	/** 강연신청자 목록 **/
@@ -60,9 +59,8 @@ public class bookingController {
 
 	/** 강연 신청 **/
 	@PostMapping(value = "/emp/new")
-	public List<LectApplyList> insertLectEmp(@RequestBody LectApplyList list) throws Exception {
+	public void insertLectEmp(@RequestBody LectApplyList list) throws Exception {
 		sqlService.insertLectEmp(list);
-		return sqlService.getLectEmpList("");
 	}
 
 	/** 신청 내역 조회(사번만 입력) **/
@@ -72,22 +70,19 @@ public class bookingController {
 		return list;
 	}
 
-	/** 신청한 강연 취소(조회한 신청한 강연 정보 취소) **/
+	/**
+	 * 신청한 강연 취소(조회한 신청한 강연 정보 취소) http://localhost:8080/booking/lect/emp/A?empNo={}
+	 **/
 	@DeleteMapping(value = "/emp/{lect}")
-	public List<LectApplyList> deleteLectEmp(@PathVariable(name = "lect") String lectName, @RequestParam String empNo)
+	public void deleteLectEmp(@PathVariable(name = "lect") String lectName, @RequestParam String empNo)
 			throws Exception {
 		LectApplyList list = new LectApplyList();
 		list.setLecturerName(lectName);
 		list.setEmpNo(empNo);
-
 		sqlService.deleteLectEmp(list);
-		return sqlService.getLectEmpList("");
 	}
 
-	/**
-	 * 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순)
-	 * http://localhost:8080/booking/lect/emp/A?empNo={}
-	 **/
+	/** 실시간 인기 강연(실시간 3일간 가능 신청이 많은 강연순) **/
 	@GetMapping(value = "/rank")
 	public List<LectApplyList> getLectRank() throws Exception {
 		List<LectApplyList> list = sqlService.getLectRank();

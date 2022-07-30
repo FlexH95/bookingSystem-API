@@ -18,3 +18,6 @@ CREATE TABLE lect_Emp_TB
     empNo          VARCHAR2 (5)   NOT NULL,
     CONSTRAINT lect_Emp_pk PRIMARY KEY (lecturerName,empNo)
 );
+
+ALTER TABLE lect_Emp_TB
+ADD CONSTRAINT fk_lect foreign KEY(lecturerName) references Lect_TB (lecturerName);
