@@ -57,20 +57,20 @@
 
 ###  시스템 구조
 
-**com.exam.bookingSystem.config**
-=> 각종 외부 설정들의 Bean 등록을 위한 패키지.
-
-**com.exam.bookingSystem.controller**
-=> 클라이언트의 요청을 처리할 패키지.
-
-**com.exam.bookingSystem.service**
-=> 비지니스 로직을 접급 및 호출할 패키지. (LectTableService(선언), LectTableServiceImpl(호출)로 나눠짐)
-
-**com.exam.bookingSystem.mapper**
-=> DB에 접근을 위한 패키지. (LectTableMapper.xml에서 SQL 제어)
-
-**com.exam.bookingSystem.model**
-=> Class로 객체 관리 패키지.(DB Table과 동일)
+> **com.exam.bookingSystem.config**
+> => 각종 외부 설정들의 Bean 등록을 위한 패키지.
+> 
+> **com.exam.bookingSystem.controller**
+> => 클라이언트의 요청을 처리할 패키지.
+> 
+> **com.exam.bookingSystem.service**
+> => 비지니스 로직을 접급 및 호출할 패키지. (LectTableService(선언), LectTableServiceImpl(호출)로 나눠짐)
+> 
+> **com.exam.bookingSystem.mapper**
+> => DB에 접근을 위한 패키지. (LectTableMapper.xml에서 SQL 제어)
+> 
+> **com.exam.bookingSystem.model**
+> => Class로 객체 관리 패키지.(DB Table과 동일)
 
 ### 개발 API
 
