@@ -64,7 +64,8 @@
 > => 클라이언트의 요청을 처리할 패키지.
 > 
 > **com.exam.bookingSystem.service**
-> => 비지니스 로직을 접급 및 호출할 패키지. (LectTableService(선언), LectTableServiceImpl(호출)로 나눠짐)
+> => 비지니스 로직을 접급 및 호출할 패키지. 
+> (LectTableService(선언), LectTableServiceImpl(호출)로 나눠짐)
 > 
 > **com.exam.bookingSystem.mapper**
 > => DB에 접근을 위한 패키지. (LectTableMapper.xml에서 SQL 제어)
