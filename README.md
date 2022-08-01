@@ -14,6 +14,7 @@
 
 1.  [개발 스택](#개발-스택)
     + [테이블 정의](#테이블-정의)    
+    + [DDL](#ddl)    
 
 2. [개발 상세](#개발-상세)
     + [시스템 구조](#시스템-구조)
@@ -33,10 +34,11 @@
 > -  API : JDBC
 > - Build Tool :  Maven 
 > - 테스트 방법 : Talend API Tester 
-> - 데이터 설계 (※ 하단 테이블 정의 및 소스 schema.sql 참고)
+> - 데이터 설계 (※ 하단 테이블 정의 및 DDL(소스 schema.sql) 참고)
+
 
 ### 테이블 정의
----
+
 *   **Lect_TB(강연 마스터)**
 
 |컬럼명         |PK|NULL|TYPE         |설명         | 비고          |
@@ -53,8 +55,30 @@
 |-------------|:--:|:----:|-------------|:-------------:|---------------|
 |`lecturerName` |1 |N   |VARCHAR2(100)|강연자        | FK(Lect_TB. lecturerName) |
 |empNo        |2 |N   |VARCHAR2(5)  |사원번호      |               |           
----
 
+### DDL
+```
+CREATE TABLE lect_TB  
+(
+  lecturerName    VARCHAR2(100)  NOT NULL,
+  placeName       VARCHAR2(100)  NOT NULL,
+  capCnt          NUMBER(3)      NOT NULL,
+  dateTimeStamp   VARCHAR2(12)   DEFAULT TO_CHAR(SYSDATE,'YYYYMMDDHH24MI'),
+  lectDesc        VARCHAR2(100),
+  CONSTRAINT lect_pk PRIMARY KEY (lecturerName, placeName, capCnt, dateTimeStamp)
+);
+```
+```
+CREATE TABLE lect_Emp_TB 
+( 
+  lecturerName   VARCHAR2(100)	NOT NULL,
+  empNo          VARCHAR2(5)    NOT NULL,
+  CONSTRAINT lect_Emp_pk PRIMARY KEY (lecturerName,empNo)
+);
+```
+```
+ALTER TABLE lect_Emp_TB ADD CONSTRAINT fk_lect foreign KEY(lecturerName) references Lect_TB (lecturerName);
+```
 ## 개발 상세 
 
 ###  시스템 구조
