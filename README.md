@@ -19,7 +19,9 @@
     + [시스템 구조](#시스템-구조)
 
     + [개발 API](#개발-api)
-    + [추가 고려](#추가-사항)    
+    + [추가 고려](#추가-사항)
+    
+3. [개발 후기](#개발-후기)    
 
 ## 개발 스택
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">  <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white">  <img src="https://img.shields.io/badge/Apache Maven-C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white">  <img src="https://img.shields.io/badge/talend-FF6D70?style=for-the-badge&logo=Apache talend&logoColor=white">
@@ -156,3 +158,18 @@
 
 - 단위 테스트
 > Jnuit4(controller, mapper, service)
+
+## 개발 후기
+
+### Restful API를 공부 및 개발하면서 느낀점은 아래와 같습니다.
+
+- Front-End와 Back-End의 명확한 분업이 가능하다. (각자의 역할이 명확하게 분리되어 있다.)
+- View 영역이 포함되지 않아 신속하고 온전한 서버 개발 진행이 가능하다.
+- HTTP Method(HTTP: GET, POST, PUT, DELETE)와 URI를 통해 정의되며 직관적으로 요청을 이해하기 쉽다.
+- 개발자간의 소통이 쉽고 혼선을 줄일 수 있을 것 같다.
+- 조금 아쉬운 부분은 공식화된 표준(가이드)이(가) 없어 사람마다 다르게 해석이 가능할 것 같다.
+
+### 추가적으로 개발하고 싶은 부분
+
+- 백오피스와 유저에 따라 권한 넣는 부분을 추가하고 싶다.
+- 강연 몇시간 하는지에 따라 같은 강연자의 강연이라도 시간을 계산하여 신청 가능 여부를 판단하는 기능을 추가하고 싶다.
